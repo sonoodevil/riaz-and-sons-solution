@@ -15,15 +15,15 @@ let activeScene = "generator";
    If `youtube` is set, a privacy-friendly youtube-nocookie embed is used.
    ========================================================= */
 const VIDEOS = [
-  { title: "Company Clip 1",     note: "1.84 MB", poster: "assets/lift-workshop.jpg",    src: "", youtube: "" },
-  { title: "Company Clip 2",     note: "2.93 MB", poster: "assets/genset-equipment.jpg", src: "", youtube: "" },
-  { title: "Company Clip 3",     note: "2.37 MB", poster: "assets/panel-work.jpg",       src: "", youtube: "" },
-  { title: "Site Clip · 2022",   note: "0.78 MB", poster: "assets/site-survey.jpg",      src: "", youtube: "" },
-  { title: "Field Clip · Jan 2023", note: "5.74 MB", poster: "assets/civil-measurement.jpg", src: "", youtube: "" },
-  { title: "Field Clip · Mar 2023", note: "7.53 MB", poster: "assets/field-team-panel.jpg", src: "", youtube: "" },
+  { title: "Company Clip 1",     note: "1.84 MB", poster: "assets/lift-workshop.jpg",    src: "assets/videos/company-video-01-VID-20260615-WA0036.mp4", youtube: "" },
+  { title: "Company Clip 2",     note: "2.93 MB", poster: "assets/genset-equipment.jpg", src: "assets/videos/company-video-02-VID-20260615-WA0037.mp4", youtube: "" },
+  { title: "Company Clip 3",     note: "2.37 MB", poster: "assets/panel-work.jpg",       src: "assets/videos/company-video-03-VID-20260615-WA0038.mp4", youtube: "" },
+  { title: "Site Clip · 2022",   note: "0.78 MB", poster: "assets/site-survey.jpg",      src: "assets/videos/company-video-04-WhatsApp_Video_2022-07-15_at_4.01.13_PM_1_.mp4", youtube: "" },
+  { title: "Field Clip · Jan 2023", note: "5.74 MB", poster: "assets/civil-measurement.jpg", src: "assets/videos/company-video-05-WhatsApp_Video_2023-01-04_at_19.31.00.mp4", youtube: "" },
+  { title: "Field Clip · Mar 2023", note: "7.53 MB", poster: "assets/field-team-panel.jpg", src: "assets/videos/company-video-06-WhatsApp_Video_2023-03-30_at_14.39.26_1_.mp4", youtube: "" },
 ];
 // Main "Watch Walkthrough" clip — paste an Unlisted ID to use the embed instead.
-const WALKTHROUGH = { youtube: "", src: "", poster: "assets/profile-board.jpg" };
+const WALKTHROUGH = { youtube: "", src: "assets/videos/company-video-01-VID-20260615-WA0036.mp4", poster: "assets/profile-board.jpg" };
 
 function ytEmbed(id, { autoplay = false } = {}) {
   const params = `rel=0&modestbranding=1&playsinline=1${autoplay ? "&autoplay=1" : ""}`;
@@ -60,15 +60,88 @@ const els = {
   requestList: $("requestList"), reportList: $("reportList"), logList: $("logList"),
 };
 
-/* ---------- API helpers ---------- */
+/* ========================================================
+   LOCAL MODE — makes the whole site work with NO backend
+   (e.g. on GitHub Pages / cPanel static hosting). Activated
+   automatically when /api/state is unreachable at boot.
+   Telemetry is simulated in the browser; bookings, reports
+   and logs persist in localStorage and show in the dashboard.
+   ======================================================== */
+let LOCAL = false;
+const LSK = { req: "rs_requests", rep: "rs_reports", log: "rs_logs" };
+const LS = {
+  get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+function nowISO() { return new Date().toISOString(); }
+function rnd(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function localLog(source, level, message) {
+  const logs = LS.get(LSK.log, []);
+  logs.unshift({ id: logs.length + 1, source, level, message, created_at: nowISO() });
+  LS.set(LSK.log, logs.slice(0, 200));
+}
+const localState = {
+  generator: { running: false, mode: "manual", rpm: 0, voltage: 0, temperature: 29, fuel: 86, load: 0, fault: null },
+  lift: { current_floor: 0, target_floor: 0, moving: false, door: "closed", health: "normal" },
+  site: { active_clients: 1, last_update: nowISO() },
+};
+function localSimTick() {
+  const g = localState.generator, l = localState.lift;
+  if (g.running) {
+    g.rpm = Math.min(1500, g.rpm + rnd(70, 140));
+    g.voltage = Math.min(230, g.voltage + rnd(7, 17));
+    g.load = Math.min(78, g.load + rnd(1, 4));
+    g.temperature = Math.min(96, g.temperature + rnd(0, 2));
+    g.fuel = Math.max(0, +(g.fuel - (0.02 + Math.random() * 0.06)).toFixed(2));
+    if (g.temperature >= 88 && !g.fault) { g.fault = "Temperature warning"; localLog("generator", "warning", "Generator temperature crossed safe demo threshold."); }
+  } else {
+    g.rpm = Math.max(0, g.rpm - rnd(90, 180));
+    g.voltage = Math.max(0, g.voltage - rnd(9, 22));
+    g.load = Math.max(0, g.load - rnd(4, 10));
+    g.temperature = Math.max(28, g.temperature - rnd(0, 2));
+  }
+  if (l.moving) {
+    if (l.current_floor < l.target_floor) l.current_floor++;
+    else if (l.current_floor > l.target_floor) l.current_floor--;
+    l.door = "closed";
+    if (l.current_floor === l.target_floor) { l.moving = false; l.door = "opening"; localLog("lift", "info", `Lift arrived at floor ${l.current_floor}.`); }
+  } else if (l.door === "opening") l.door = "open";
+  else if (l.door === "open") l.door = "closing";
+  else if (l.door === "closing") l.door = "closed";
+  localState.site.last_update = nowISO();
+  telemetry = localState;
+  updateTelemetryUI();
+}
+function localApi(path, body) {
+  const g = localState.generator, l = localState.lift;
+  if (path === "/api/generator/start") { g.running = true; g.fault = null; localLog("generator", "info", "Manual start command accepted."); }
+  else if (path === "/api/generator/stop") { g.running = false; localLog("generator", "info", "Manual stop command accepted."); }
+  else if (path === "/api/generator/fault") { g.fault = "Mock overload fault"; g.temperature = Math.max(g.temperature, 91); localLog("generator", "critical", "Mock overload fault triggered."); }
+  else if (path === "/api/generator/reset") { g.fault = null; g.temperature = 40; localLog("generator", "info", "Generator fault reset."); }
+  else if (path.startsWith("/api/lift/go/")) { const f = Math.max(0, Math.min(5, parseInt(path.split("/").pop(), 10) || 0)); l.target_floor = f; l.moving = l.current_floor !== f; l.door = "closed"; localLog("lift", "info", `Lift movement command accepted: floor ${f}.`); }
+  else if (path === "/api/lift/fault") { l.health = "maintenance required"; localLog("lift", "warning", "Mock lift maintenance alert triggered."); }
+  else if (path === "/api/lift/reset") { l.health = "normal"; localLog("lift", "info", "Lift maintenance alert reset."); }
+  else if (path === "/api/service-requests") { const a = LS.get(LSK.req, []); const id = (a[0]?.id || 0) + 1; a.unshift({ id, ...body, status: "new", created_at: nowISO() }); LS.set(LSK.req, a); localLog("booking", "info", `New service request created: #${id}.`); return { ok: true, id }; }
+  else if (path === "/api/reports") { const a = LS.get(LSK.rep, []); const id = (a[0]?.id || 0) + 1; a.unshift({ id, workflow: body.workflow, title: body.title, summary: body.summary, created_at: nowISO() }); LS.set(LSK.rep, a); localLog("report", "info", `${body.workflow} field report #${id} saved.`); return { ok: true, id }; }
+  return { ok: true };
+}
+
+/* ---------- API helpers (route to local store when no backend) ---------- */
 function apiPost(path, body = null) {
+  if (LOCAL) return Promise.resolve(localApi(path, body));
   return fetch(API + path, {
     method: "POST",
     headers: body ? { "Content-Type": "application/json" } : {},
     body: body ? JSON.stringify(body) : null,
-  }).then((res) => res.json());
+  }).then((res) => { if (!res.ok) throw new Error("http " + res.status); return res.json(); });
 }
 function apiPatch(path, body) {
+  if (LOCAL) {
+    const id = parseInt(path.split("/").pop(), 10);
+    const a = LS.get(LSK.req, []); const it = a.find((x) => x.id === id); if (it) it.status = body.status; LS.set(LSK.req, a);
+    localLog("booking", "info", `Service request #${id} status updated to ${body.status}.`);
+    return Promise.resolve({ ok: true });
+  }
   return fetch(API + path, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -171,7 +244,12 @@ els.bookingForm.addEventListener("submit", async (event) => {
     // Try the backend first (saves to SQLite + admin dashboard)
     const response = await apiPost("/api/service-requests", data);
     if (!response || response.ok === false) throw new Error("no backend");
-    els.bookingStatus.textContent = `✓ Saved to backend. Request ID: ${response.id}`;
+    if (LOCAL) {
+      els.bookingStatus.textContent = `✓ Saved to dashboard (#${response.id}). Opening WhatsApp to send it to Riaz & Sons Solution…`;
+      window.open(whatsappBookingURL(data), "_blank");
+    } else {
+      els.bookingStatus.textContent = `✓ Saved to backend. Request ID: ${response.id}`;
+    }
     els.bookingForm.reset();
     await loadAdminData();
   } catch (error) {
@@ -186,6 +264,12 @@ els.bookingForm.addEventListener("submit", async (event) => {
 $("refreshAdmin").addEventListener("click", loadAdminData);
 
 async function loadAdminData() {
+  if (LOCAL) {
+    renderRequests(LS.get(LSK.req, []));
+    renderReports(LS.get(LSK.rep, []));
+    renderLogs(LS.get(LSK.log, []));
+    return;
+  }
   try {
     const [requests, reports, logs] = await Promise.all([
       fetch("/api/service-requests").then((r) => r.json()),
@@ -679,6 +763,19 @@ primaryNav?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () 
 /* ---------- Boot ---------- */
 renderVideoGallery();
 recalcAll();
-connectWebSocket();
-loadAdminData();
 animate();
+
+// Detect backend; fall back to in-browser LOCAL mode for static hosting.
+fetch(API + "/api/state", { cache: "no-store" })
+  .then((res) => { if (!res.ok) throw new Error("no backend"); return res.json(); })
+  .then(() => { LOCAL = false; connectWebSocket(); loadAdminData(); })
+  .catch(() => {
+    LOCAL = true;
+    document.body.classList.add("local-mode");
+    if (!LS.get(LSK.log, []).length) localLog("system", "info", "Local demo mode started — telemetry simulated in browser.");
+    els.heroLog.textContent = "Local demo mode — live telemetry is simulated in your browser (no backend needed).";
+    telemetry = localState;
+    updateTelemetryUI();
+    setInterval(localSimTick, 1000);
+    loadAdminData();
+  });
