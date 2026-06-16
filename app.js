@@ -25,6 +25,95 @@ const VIDEOS = [
 // Main "Watch Walkthrough" clip — paste an Unlisted ID to use the embed instead.
 const WALKTHROUGH = { youtube: "", src: "assets/videos/company-video-01-VID-20260615-WA0036.mp4", poster: "assets/profile-board.jpg" };
 
+/* =========================================================
+   CONTENT ENGINE — renders the site from content.js, with
+   live overrides from the visual editor (localStorage).
+   ========================================================= */
+function deepMerge(base, over) {
+  if (Array.isArray(over)) return over.slice();
+  if (over && typeof over === "object") {
+    const out = Array.isArray(base) ? base.slice() : { ...(base || {}) };
+    for (const k in over) out[k] = deepMerge(base ? base[k] : undefined, over[k]);
+    return out;
+  }
+  return over === undefined ? base : over;
+}
+function getContent() {
+  let over = {};
+  try { over = JSON.parse(localStorage.getItem("rs_content")) || {}; } catch {}
+  return deepMerge(window.SITE_CONTENT || {}, over);
+}
+let CONTENT = getContent();
+
+function esc(s) { return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[c]); }
+function fmtHead(s) { return esc(s).replace(/\{gold:([^}]*)\}/g, '<span class="grad">$1</span>'); }
+function setText(id, v) { const el = document.getElementById(id); if (el && v != null) el.textContent = v; }
+function setHTML(id, v) { const el = document.getElementById(id); if (el && v != null) el.innerHTML = v; }
+
+function applyContent() {
+  const C = CONTENT; if (!C || !Object.keys(C).length) return;
+
+  // Brand (nav + footer)
+  if (C.brand) {
+    document.querySelectorAll(".brand strong, footer .fbrand strong").forEach((e) => (e.textContent = C.brand.name));
+    document.querySelectorAll(".brand .nav-logo, footer .fbrand img").forEach((e) => (e.src = C.brand.logo));
+    const t = document.querySelector(".brand small"); if (t) t.textContent = C.brand.tagline;
+  }
+
+  // Hero
+  if (C.hero) {
+    setText("heroEyebrow", C.hero.eyebrow);
+    setHTML("heroHeadline", fmtHead(C.hero.headline));
+    setText("heroLead", C.hero.lead);
+    const meta = document.querySelector(".hero-meta");
+    if (meta && C.hero.stats) meta.innerHTML = C.hero.stats.map((s) => `<div><strong>${esc(s.value)}</strong><span>${esc(s.label)}</span></div>`).join("");
+  }
+
+  // Partners marquee
+  if (C.partners) setHTML("partnerRow", C.partners.map((p) => `<span class="pill${/ISO|T[ÜU]V/i.test(p) ? " cert" : ""}">${esc(p)}</span>`).join(""));
+
+  // Services
+  if (C.services) setHTML("servicesGrid", C.services.map((s, i) =>
+    `<article class="svc-card${s.gold ? " gold" : ""}"><span class="num">${String(i + 1).padStart(2, "0")}</span>` +
+    `<div class="ico">${s.icon || "🔧"}</div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p>` +
+    `<div class="tags">${(s.tags || []).map((t) => `<span>${esc(t)}</span>`).join("")}</div></article>`).join(""));
+
+  // Leadership
+  if (C.leadership) setHTML("leadGrid", C.leadership.map((l) =>
+    `<article class="leader"><div class="photo"><span class="real-tag">● ${esc(l.tag)}</span>` +
+    `<img src="${esc(l.image)}" alt="${esc(l.name)}" /></div><div class="body"><h3>${esc(l.name)}</h3>` +
+    `<div class="role">${esc(l.role)}</div><p>${esc(l.bio)}</p>${l.note ? `<p class="dua">${esc(l.note)}</p>` : ""}</div></article>`).join(""));
+
+  // Projects
+  if (C.projects) setHTML("projGrid", C.projects.map((p) =>
+    `<article class="proj"><img class="pimg" src="${esc(p.image)}" alt="${esc(p.title)}" /><div class="pbody">` +
+    `<div class="badge ${p.badge === "gov" ? "gov" : "prv"}"><span class="bd"></span>${esc(p.label)}</div>` +
+    `<h3>${esc(p.title)}</h3><p>${esc(p.text)}</p><div class="pfoot"><span class="t">${esc(p.type)}</span><span class="y">${esc(p.year)}</span></div></div></article>`).join(""));
+
+  // Gallery
+  if (C.gallery) setHTML("proofGrid", C.gallery.map((g) =>
+    `<div class="proof"><span class="tag-chip ${g.tag === "ai" ? "ai" : "real"}">${g.tag === "ai" ? "AI Concept Visualization" : "Real Photo"}</span>` +
+    `<img src="${esc(g.image)}" alt="${esc(g.title)}" /><div class="cap"><h4>${esc(g.title)}</h4><p>${esc(g.caption)}</p></div></div>`).join(""));
+
+  // Contact
+  if (C.contact) {
+    const c = C.contact;
+    setHTML("contactInfo",
+      `<div class="crow"><div class="ci">📍</div><div><h5>Head Office</h5><p>${esc(c.address)}</p></div></div>` +
+      `<div class="crow"><div class="ci">📞</div><div><h5>Landline</h5><a href="tel:${esc((c.landline || "").replace(/\s/g, ""))}">${esc(c.landline)}</a></div></div>` +
+      `<div class="crow"><div class="ci">📱</div><div><h5>Mobile / WhatsApp</h5><a href="https://wa.me/${esc(c.whatsapp)}" target="_blank" rel="noopener">+${esc(c.whatsapp)}</a></div></div>` +
+      `<div class="crow"><div class="ci">🌐</div><div><h5>Website</h5><a href="http://${esc(c.website)}" target="_blank" rel="noopener">${esc(c.website)}</a></div></div>` +
+      `<div class="crow"><div class="ci">📸</div><div><h5>Instagram</h5><a href="https://www.instagram.com/${esc(c.instagram)}/" target="_blank" rel="noopener">@${esc(c.instagram)}</a></div></div>`);
+    setHTML("contactSocs",
+      `<a class="socb" href="https://wa.me/${esc(c.whatsapp)}" target="_blank" rel="noopener">💬 WhatsApp</a>` +
+      `<a class="socb" href="https://www.instagram.com/${esc(c.instagram)}/" target="_blank" rel="noopener">📸 Instagram</a>` +
+      `<a class="socb" href="https://www.linkedin.com/company/${esc(c.linkedin)}/" target="_blank" rel="noopener">💼 LinkedIn</a>`);
+    if (c.offices) setHTML("officeList", c.offices.map((o, i) => `<div class="office-row${i === 0 ? " hq" : ""}"><span class="dot2"></span> ${esc(o)}${i === 0 ? ' <span class="hqtag">HEAD OFFICE</span>' : ""}</div>`).join(""));
+    const ow = document.getElementById("officeWhatsapp");
+    if (ow) ow.href = `https://wa.me/${c.whatsapp}?text=${encodeURIComponent("Salam, I want to inquire about engineering services from Riaz & Sons Solution.")}`;
+  }
+}
+
 function ytEmbed(id, { autoplay = false } = {}) {
   const params = `rel=0&modestbranding=1&playsinline=1${autoplay ? "&autoplay=1" : ""}`;
   return `<iframe src="https://www.youtube-nocookie.com/embed/${id}?${params}" title="Riaz & Sons real clip"
@@ -35,7 +124,7 @@ function ytEmbed(id, { autoplay = false } = {}) {
 function renderVideoGallery() {
   const grid = document.getElementById("videoGrid");
   if (!grid) return;
-  grid.innerHTML = VIDEOS.map((v) => {
+  grid.innerHTML = (CONTENT.videos || VIDEOS).map((v) => {
     let media, tag;
     if (v.youtube) { media = ytEmbed(v.youtube); tag = "YouTube Unlisted"; }
     else if (v.src) { media = `<video controls preload="metadata" poster="${v.poster}"><source src="${v.src}" type="video/mp4" /></video>`; tag = "Real proof"; }
@@ -259,14 +348,15 @@ function renderTech(which) {
 }
 
 /* ---------- Booking ---------- */
-const WHATSAPP_NUMBER = "923058967537"; // company WhatsApp
+const WHATSAPP_NUMBER = "923058967537"; // company WhatsApp (overridden by content.contact.whatsapp)
 
 function whatsappBookingURL(d) {
+  const num = (CONTENT.contact && CONTENT.contact.whatsapp) || WHATSAPP_NUMBER;
   const text =
     `Salam, I want to book a service from Riaz & Sons Solution.\n` +
     `Name: ${d.name}\nPhone: ${d.phone}\nService: ${d.service_type}\n` +
     `Location: ${d.location}\nDetails: ${d.details}`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
 }
 
 els.bookingForm.addEventListener("submit", async (event) => {
@@ -790,10 +880,11 @@ function setModal(id, open) {
 function fillWalkMedia(open) {
   const box = $("walkMedia");
   if (!box) return;
+  const W = CONTENT.walkthrough || WALKTHROUGH;
   if (open) {
-    if (WALKTHROUGH.youtube) box.innerHTML = ytEmbed(WALKTHROUGH.youtube, { autoplay: true });
-    else if (WALKTHROUGH.src) box.innerHTML = `<video id="walkVideo" controls preload="metadata" poster="${WALKTHROUGH.poster}"><source src="${WALKTHROUGH.src}" type="video/mp4" /></video>`;
-    else box.innerHTML = `<div class="video-ph" style="background-image:url('${WALKTHROUGH.poster}');aspect-ratio:16/9"><span>▶ Add the walkthrough YouTube Unlisted ID in app.js (WALKTHROUGH)</span></div>`;
+    if (W.youtube) box.innerHTML = ytEmbed(W.youtube, { autoplay: true });
+    else if (W.src) box.innerHTML = `<video id="walkVideo" controls preload="metadata" poster="${W.poster}"><source src="${W.src}" type="video/mp4" /></video>`;
+    else box.innerHTML = `<div class="video-ph" style="background-image:url('${W.poster}');aspect-ratio:16/9"><span>▶ Add the walkthrough YouTube Unlisted ID in content.js</span></div>`;
     const v = box.querySelector("video");
     if (v) { v.currentTime = 0; v.play().catch(() => {}); }
   } else {
@@ -814,6 +905,7 @@ navToggle?.addEventListener("click", () => primaryNav.classList.toggle("open"));
 primaryNav?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => primaryNav.classList.remove("open")));
 
 /* ---------- Boot ---------- */
+try { applyContent(); } catch (e) { console.warn("Content render skipped:", e); }
 renderVideoGallery();
 renderTech(activeScene);
 recalcAll();

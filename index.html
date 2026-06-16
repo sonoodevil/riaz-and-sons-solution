@@ -7,6 +7,7 @@
   <meta name="description" content="Riaz & Sons Solution — Lift, Genset, HVAC, Civil & Electrical engineering services with field-reporting tools, interactive 3D equipment models and online booking. Trusted since 1965." />
   <link rel="icon" href="assets/real-logo.jpg" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="content.js"></script>
   <script type="module" src="app.js"></script>
 </head>
 <body>
@@ -49,9 +50,9 @@
     <section class="hero wrap" id="home">
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Engineering · Field Operations · Digital Monitoring</p>
-          <h1>Engineering Services, Field Operations &amp; <span class="grad">Digital Monitoring</span> — One Platform.</h1>
-          <p class="lead">
+          <p class="eyebrow" id="heroEyebrow">Engineering · Field Operations · Digital Monitoring</p>
+          <h1 id="heroHeadline">Engineering Services, Field Operations &amp; <span class="grad">Digital Monitoring</span> — One Platform.</h1>
+          <p class="lead" id="heroLead">
             Riaz &amp; Sons Solution unifies real field engineering — Lift, Genset, HVAC, Civil and Electrical —
             with live equipment monitoring, interactive 3D models, online booking and an operations dashboard.
           </p>
@@ -108,7 +109,7 @@
         <h2>Five engineering departments. One accountable team.</h2>
         <p>Each department runs a structured field workflow — inspection, measurement, checklist and report — backed by certified technicians and real equipment.</p>
       </div>
-      <div class="svc-grid">
+      <div class="svc-grid" id="servicesGrid">
         <article class="svc-card gold">
           <span class="num">01</span>
           <div class="ico">🛗</div>
@@ -162,7 +163,7 @@
           <h2>Founded by Muhammad Riaz. Led forward by Adnan Riaz.</h2>
           <p>Six decades of engineering leadership — from our founder who built the company, to the team driving it forward today.</p>
         </div>
-        <div class="lead-grid">
+        <div class="lead-grid" id="leadGrid">
           <article class="leader">
             <div class="photo">
               <span class="real-tag">● Our Founder</span>
@@ -214,7 +215,7 @@
           <h2>Trusted by government and private sector.</h2>
           <p>27+ projects delivered across Pakistan since 1965. A representative selection below.</p>
         </div>
-        <div class="proj-grid">
+        <div class="proj-grid" id="projGrid">
           <article class="proj">
             <img class="pimg" src="assets/lift-workshop.jpg" alt="City Center commercial tower vertical transport" />
             <div class="pbody">
@@ -280,7 +281,7 @@
         <h2>Real photos for trust. AI only for clearly-labelled concepts.</h2>
         <p>Every image in this gallery is a genuine uploaded Riaz &amp; Sons Solution photo. We never present AI images as completed projects — any concept visual is tagged "AI Concept Visualization".</p>
       </div>
-      <div class="proof-grid">
+      <div class="proof-grid" id="proofGrid">
         <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/profile-board.jpg" alt="Company profile board" /><div class="cap"><h4>Company Profile Board</h4><p>Brand &amp; service identity</p></div></div>
         <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/service-board.jpg" alt="Services board" /><div class="cap"><h4>Services Board</h4><p>Civil · Electrical · Mechanical · Lift</p></div></div>
         <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/org-chart.jpg" alt="Organization chart" /><div class="cap"><h4>Organization Chart</h4><p>Real company team structure</p></div></div>
@@ -653,14 +654,14 @@
         </div>
         <div class="contact-grid">
           <div>
-            <div class="cinfo">
+            <div class="cinfo" id="contactInfo">
               <div class="crow"><div class="ci">📍</div><div><h5>Head Office</h5><p>156 Aurangzeb Block, New Garden Town, Lahore, Pakistan</p></div></div>
               <div class="crow"><div class="ci">📞</div><div><h5>Landline</h5><a href="tel:+924235952051">+92 42-3595 2051</a></div></div>
               <div class="crow"><div class="ci">📱</div><div><h5>Mobile / WhatsApp</h5><a href="tel:03058967537">0305-8967537</a></div></div>
               <div class="crow"><div class="ci">🌐</div><div><h5>Website</h5><a href="http://www.riazandsons.com" target="_blank" rel="noopener">www.riazandsons.com</a></div></div>
               <div class="crow"><div class="ci">📸</div><div><h5>Instagram</h5><a href="https://www.instagram.com/riaz_and_sons_solution/" target="_blank" rel="noopener">@riaz_and_sons_solution</a></div></div>
             </div>
-            <div class="socs">
+            <div class="socs" id="contactSocs">
               <a class="socb" href="https://wa.me/923058967537" target="_blank" rel="noopener">💬 WhatsApp</a>
               <a class="socb" href="https://www.instagram.com/riaz_and_sons_solution/" target="_blank" rel="noopener">📸 Instagram</a>
               <a class="socb" href="https://www.linkedin.com/company/riaz-sons-solution/" target="_blank" rel="noopener">💼 LinkedIn</a>
@@ -668,12 +669,14 @@
           </div>
           <div class="offices">
             <h4>Our Offices</h4>
-            <div class="office-row hq"><span class="dot2"></span> Lahore — 156 Aurangzeb Block, New Garden Town <span class="hqtag">HEAD OFFICE</span></div>
-            <div class="office-row"><span class="dot2"></span> Islamabad</div>
-            <div class="office-row"><span class="dot2"></span> Karachi</div>
-            <div class="office-row"><span class="dot2"></span> Multan</div>
-            <div class="office-row"><span class="dot2"></span> Peshawar</div>
-            <a class="btn blue full" href="https://wa.me/923058967537?text=Salam%2C%20I%20want%20to%20inquire%20about%20engineering%20services%20from%20Riaz%20%26%20Sons%20Solution." target="_blank" rel="noopener" style="margin-top:18px">Inquire on WhatsApp ↗</a>
+            <div id="officeList">
+              <div class="office-row hq"><span class="dot2"></span> Lahore — 156 Aurangzeb Block, New Garden Town <span class="hqtag">HEAD OFFICE</span></div>
+              <div class="office-row"><span class="dot2"></span> Islamabad</div>
+              <div class="office-row"><span class="dot2"></span> Karachi</div>
+              <div class="office-row"><span class="dot2"></span> Multan</div>
+              <div class="office-row"><span class="dot2"></span> Peshawar</div>
+            </div>
+            <a class="btn blue full" id="officeWhatsapp" href="https://wa.me/923058967537?text=Salam%2C%20I%20want%20to%20inquire%20about%20engineering%20services%20from%20Riaz%20%26%20Sons%20Solution." target="_blank" rel="noopener" style="margin-top:18px">Inquire on WhatsApp ↗</a>
           </div>
         </div>
       </div>
