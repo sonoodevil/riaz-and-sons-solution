@@ -16,7 +16,7 @@ window.SITE_CONTENT = {
   hero: {
     eyebrow: "Engineering · Field Operations · Digital Monitoring",
     // Use {gold:...} to colour part of the headline.
-    headline: 'Engineering Services, Field Operations & {gold:Digital Monitoring} — One Platform.',
+    headline: 'Engineering Services, Field Operations & {gold:Digital Monitoring} — One Trusted Platform.',
     lead: "Riaz & Sons Solution unifies real field engineering — Lift, Genset, HVAC, Civil and Electrical — with live equipment monitoring, interactive 3D models, online booking and an operations dashboard.",
     stats: [
       { value: "1965", label: "Established" },
