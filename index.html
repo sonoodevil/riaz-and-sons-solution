@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riaz &amp; Sons Solution | Engineering · Field Operations · Digital Monitoring</title>
+  <meta name="description" content="Riaz & Sons Solution — Lift, Genset, HVAC, Civil & Electrical engineering services with live field-reporting workflows, 3D lift/genset simulation, booking and a backend command center. Trusted since 1965." />
+  <link rel="icon" href="assets/real-logo.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+
+  <div class="announce">
+    <div class="track" aria-hidden="true">
+      <span>★ Established 1965 — Six Decades of Engineering Trust</span>
+      <span>★ Lift · Genset · HVAC · Civil · Electrical · Site Survey · Repair &amp; Maintenance</span>
+      <span>★ Offices: Lahore · Islamabad · Karachi · Multan · Peshawar</span>
+      <span>★ Established 1965 — Six Decades of Engineering Trust</span>
+      <span>★ Lift · Genset · HVAC · Civil · Electrical · Site Survey · Repair &amp; Maintenance</span>
+      <span>★ Offices: Lahore · Islamabad · Karachi · Multan · Peshawar</span>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#home">
+      <img src="assets/real-logo.jpg" alt="Riaz & Sons Solution logo" class="nav-logo" />
+      <span>
+        <strong>Riaz &amp; Sons Solution</strong>
+        <small>Engineering Field Service OS</small>
+      </span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <nav id="primaryNav">
+      <a href="#services">Services</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#projects">Projects</a>
+      <a href="#video-proof">Videos</a>
+      <a href="#workflows">Workflows</a>
+      <a href="#lab">3D Lab</a>
+      <a href="#admin">Admin</a>
+      <a href="#booking" class="btn nav-cta">Book Service</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero wrap" id="home">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Engineering · Field Operations · Digital Monitoring</p>
+          <h1>Engineering Services, Field Operations &amp; <span class="grad">Digital Monitoring</span> — One Platform.</h1>
+          <p class="lead">
+            Riaz &amp; Sons Solution unifies real field engineering — Lift, Genset, HVAC, Civil and Electrical —
+            with live telemetry, 3D equipment simulation, customer booking and a backend command center.
+          </p>
+          <div class="hero-actions">
+            <button class="btn primary" id="openWalkthrough" type="button">▶ Watch Walkthrough</button>
+            <a class="btn blue" href="#lab">⬡ Open 3D Tech Lab</a>
+            <a class="btn ghost" href="#booking">Book Service</a>
+          </div>
+          <div class="hero-meta">
+            <div><strong>1965</strong><span>Established</span></div>
+            <div><strong>27+</strong><span>Projects delivered</span></div>
+            <div><strong>200+</strong><span>Elevator projects</span></div>
+            <div><strong>5</strong><span>Offices nationwide</span></div>
+          </div>
+        </div>
+
+        <div class="command-card">
+          <div class="card-header"><span class="pulse"></span> Live Backend Telemetry</div>
+          <div class="status-grid">
+            <div><span id="heroClients">0</span><small>Active Clients</small></div>
+            <div><span id="heroRpm">0</span><small>Genset RPM</small></div>
+            <div><span id="heroFloor">0</span><small>Lift Floor</small></div>
+            <div><span id="heroTemp">0°C</span><small>Temperature</small></div>
+          </div>
+          <pre id="heroLog">Connecting to FastAPI WebSocket telemetry…</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PARTNERS ============ -->
+    <section class="partners">
+      <div class="wrap">
+        <p class="mlabel">Trusted Brand Partners &amp; Certifications</p>
+        <div class="marquee">
+          <div class="row" id="partnerRow">
+            <span class="pill">Mitsubishi Electric</span>
+            <span class="pill">Orona Elevators</span>
+            <span class="pill">Climaveneta</span>
+            <span class="pill">RC IT Cooling</span>
+            <span class="pill cert">TÜV Austria · ISO 9001:2015</span>
+            <span class="pill">LeKise Lighting</span>
+            <span class="pill">BLT Brilliant</span>
+            <span class="pill">500 Solutions</span>
+            <span class="pill">Allam Marine Generators</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICE DEPARTMENTS ============ -->
+    <section class="section wrap" id="services">
+      <div class="section-head">
+        <p class="eyebrow">Service Departments</p>
+        <h2>Five engineering departments. One accountable team.</h2>
+        <p>Each department runs a structured field workflow — inspection, measurement, checklist and report — backed by certified technicians and real equipment.</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc-card gold">
+          <span class="num">01</span>
+          <div class="ico">🛗</div>
+          <h3>Lift / Elevator</h3>
+          <p>Passenger, cargo and hospital elevators — supply, installation, commissioning, modernization and 24/7 maintenance.</p>
+          <div class="tags"><span>Passenger</span><span>Cargo</span><span>Hospital</span><span>AMC</span></div>
+        </article>
+        <article class="svc-card">
+          <span class="num">02</span>
+          <div class="ico">⚙️</div>
+          <h3>Genset / Generator</h3>
+          <p>Premium diesel generators — design, supply, on-load testing, fault diagnosis and preventive maintenance.</p>
+          <div class="tags"><span>Diesel</span><span>On-load test</span><span>Export</span></div>
+        </article>
+        <article class="svc-card gold">
+          <span class="num">03</span>
+          <div class="ico">❄️</div>
+          <h3>HVAC</h3>
+          <p>Central AC, Chillers, VRF/VRV, AHU and ventilation for offices, hospitals, pharma and industrial cooling.</p>
+          <div class="tags"><span>Chillers</span><span>VRF/VRV</span><span>AHU</span></div>
+        </article>
+        <article class="svc-card">
+          <span class="num">04</span>
+          <div class="ico">🏗️</div>
+          <h3>Civil Works</h3>
+          <p>Building design, construction, finishing, tiling, paint and maintenance with quantity surveying and estimates.</p>
+          <div class="tags"><span>Construction</span><span>Finishing</span><span>BOQ</span></div>
+        </article>
+        <article class="svc-card">
+          <span class="num">05</span>
+          <div class="ico">⚡</div>
+          <h3>Electrical Works</h3>
+          <p>DB/panel work, breaker sizing, cabling, earthing and full MEP electrification — safety-first execution.</p>
+          <div class="tags"><span>DB / Panels</span><span>Earthing</span><span>MEP</span></div>
+        </article>
+        <article class="svc-card">
+          <span class="num">+2</span>
+          <div class="ico">📐</div>
+          <h3>Site Survey + Repair &amp; Maintenance</h3>
+          <p>On-site measurement, technical assessment and ongoing programmed repair &amp; maintenance for all departments.</p>
+          <div class="tags"><span>Survey</span><span>Inspection</span><span>24/7 AMC</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ LEADERSHIP ============ -->
+    <section class="section alt" id="leadership">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Leadership &amp; Legacy</p>
+          <h2>Founded by Muhammad Riaz. Led forward by Adnan Riaz.</h2>
+          <p>The portraits below are from real Riaz &amp; Sons Solution company banners — presented on a professional engineering background.</p>
+        </div>
+        <div class="lead-grid">
+          <article class="leader">
+            <div class="photo">
+              <span class="real-tag">● Real Photo · Professional Edit</span>
+              <img src="assets/founder-portrait.jpg" alt="Muhammad Riaz — Founder, Riaz & Sons Solution, on paper since 1965" />
+            </div>
+            <div class="body">
+              <h3>Muhammad Riaz <span class="gold-text">(Late)</span> ♥</h3>
+              <div class="role">Founder &amp; Owner — On Paper Since 1965</div>
+              <p>Established Riaz &amp; Sons Solution on the principles of integrity and professionalism. In six decades he built a unique portfolio across Generators, Elevators, Escalators and HVAC — operating as a performance leader in engineering services.</p>
+              <p class="dua">May Allah grant him the highest place in Jannah. آمین</p>
+            </div>
+          </article>
+          <article class="leader">
+            <div class="photo">
+              <span class="real-tag">● Real Photo · Professional Edit</span>
+              <img src="assets/adnan-portrait.jpg" alt="Adnan Riaz — Owner & Director, Riaz & Sons Solution" />
+            </div>
+            <div class="body">
+              <h3>Adnan Riaz</h3>
+              <div class="role">Owner &amp; Director — Riaz &amp; Sons Solution</div>
+              <p>Son of the founder Muhammad Riaz (Late). Leading the next chapter — delivering reliable engineering and infrastructure across Pakistan, with partner Imran Riaz and a nationwide field team across five offices.</p>
+              <p class="dua">“Six decades of trust. A new chapter of excellence.”</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HISTORY TIMELINE ============ -->
+    <section class="section wrap">
+      <div class="section-head">
+        <p class="eyebrow">Our Journey</p>
+        <h2>Six decades of engineering, from 1965 to today.</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl"><span class="dot"></span><div class="yr">1965</div><h4>Company Founded</h4><p>Established by Muhammad Riaz — Civil, Electrical, Mechanical &amp; HVAC services.</p></div>
+        <div class="tl"><span class="dot"></span><div class="yr">1975</div><h4>Civil Works Expansion</h4><p>Building design, construction and maintenance added as core services.</p></div>
+        <div class="tl"><span class="dot"></span><div class="yr">1995</div><h4>Generator Division</h4><p>Allam Marine partnership — design, supply, commission and technical consultation.</p></div>
+        <div class="tl"><span class="dot"></span><div class="yr">2000s</div><h4>200+ Elevators · 300+ HVAC</h4><p>Established as a premier MEP contractor across Pakistan.</p></div>
+        <div class="tl"><span class="dot"></span><div class="yr">2024+</div><h4>New Chapter — Adnan Riaz</h4><p>Logistics, export &amp; complete engineering solutions — 5 offices nationwide.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section alt" id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Contract Awards &amp; Completed Work</p>
+          <h2>Trusted by government and private sector.</h2>
+          <p>27+ projects delivered across Pakistan since 1965. A representative selection below.</p>
+        </div>
+        <div class="proj-grid">
+          <article class="proj">
+            <img class="pimg" src="assets/lift-workshop.jpg" alt="City Center commercial tower vertical transport" />
+            <div class="pbody">
+              <div class="badge gov"><span class="bd"></span>Government Contract</div>
+              <h3>City Center Commercial Tower</h3>
+              <p>📍 Peshawar (PDA) — primary partner for all vertical transport systems at Peshawar's premier commercial hub.</p>
+              <div class="pfoot"><span class="t">Premier Service &amp; Installation</span><span class="y">2024</span></div>
+            </div>
+          </article>
+          <article class="proj">
+            <img class="pimg" src="assets/site-survey.jpg" alt="Rahim Yar Khan site inspection" />
+            <div class="pbody">
+              <div class="badge prv"><span class="bd"></span>Active Project</div>
+              <h3>Rahim Yar Khan Project</h3>
+              <p>📍 RYK, Punjab — site inspection by Mr. Xen Faisal Bukhari; technical explanation by Engineer Waseem Ahmad.</p>
+              <div class="pfoot"><span class="t">Technical Inspection &amp; Commissioning</span><span class="y">2025</span></div>
+            </div>
+          </article>
+          <article class="proj">
+            <img class="pimg" src="assets/genset-panels.jpg" alt="Pharmaceutical grade HVAC and control panels" />
+            <div class="pbody">
+              <div class="badge prv"><span class="bd"></span>Commercial Project</div>
+              <h3>Maple Pharmaceuticals</h3>
+              <p>📍 Pakistan — complete pharmaceutical-grade HVAC installation meeting strict industry standards.</p>
+              <div class="pfoot"><span class="t">Complete HVAC — Pharma Grade</span><span class="y">2024</span></div>
+            </div>
+          </article>
+          <article class="proj">
+            <img class="pimg" src="assets/genset-equipment.jpg" alt="Industrial diesel generator supply" />
+            <div class="pbody">
+              <div class="badge gov"><span class="bd"></span>Export Contract</div>
+              <h3>Industrial Generator Supply</h3>
+              <p>📍 Pakistan &amp; International — premium diesel generators inspected, packaged and delivered nationwide.</p>
+              <div class="pfoot"><span class="t">Premium Diesel · Export Quality</span><span class="y">2024–25</span></div>
+            </div>
+          </article>
+          <article class="proj">
+            <img class="pimg" src="assets/field-team-panel.jpg" alt="Field team night equipment work" />
+            <div class="pbody">
+              <div class="badge prv"><span class="bd"></span>Field Operations</div>
+              <h3>Panel Build &amp; Night Delivery</h3>
+              <p>📍 Nationwide — control-panel assembly, secure packaging and night-time heavy equipment delivery.</p>
+              <div class="pfoot"><span class="t">Secure Packaging · On-Time</span><span class="y">2025</span></div>
+            </div>
+          </article>
+          <article class="proj">
+            <img class="pimg" src="assets/panel-work.jpg" alt="Electrical panel commissioning" />
+            <div class="pbody">
+              <div class="badge gov"><span class="bd"></span>SNGPL / Institutional</div>
+              <h3>Lift Repair &amp; AMC Contracts</h3>
+              <p>📍 Lahore &amp; Punjab — passenger lift repair, rope handover and annual maintenance contracts.</p>
+              <div class="pfoot"><span class="t">Repair · Modernization · AMC</span><span class="y">2022–23</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REAL PHOTO PROOF ============ -->
+    <section class="section wrap" id="proof">
+      <div class="section-head">
+        <p class="eyebrow">Real Uploaded Company Material</p>
+        <h2>Real photos for trust. AI only for clearly-labelled concepts.</h2>
+        <p>Every image in this gallery is a genuine uploaded Riaz &amp; Sons Solution photo. We never present AI images as completed projects — any concept visual is tagged "AI Concept Visualization".</p>
+      </div>
+      <div class="proof-grid">
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/profile-board.jpg" alt="Company profile board" /><div class="cap"><h4>Company Profile Board</h4><p>Brand &amp; service identity</p></div></div>
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/service-board.jpg" alt="Services board" /><div class="cap"><h4>Services Board</h4><p>Civil · Electrical · Mechanical · Lift</p></div></div>
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/org-chart.jpg" alt="Organization chart" /><div class="cap"><h4>Organization Chart</h4><p>Real company team structure</p></div></div>
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/genset-panels.jpg" alt="Generator control panels" /><div class="cap"><h4>Genset Control Panels</h4><p>Fabricated &amp; tested in workshop</p></div></div>
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/field-team-panel.jpg" alt="Field team panel work" /><div class="cap"><h4>Field Team — Panel Work</h4><p>On-site electrical assembly</p></div></div>
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/civil-measurement.jpg" alt="Civil measurement" /><div class="cap"><h4>Civil Measurement</h4><p>Field measurement &amp; notes</p></div></div>
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/site-inspection.jpg" alt="Site inspection" /><div class="cap"><h4>Site Inspection</h4><p>Requirements walkthrough</p></div></div>
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/lift-workshop.jpg" alt="Lift workshop" /><div class="cap"><h4>Lift / Workshop</h4><p>Technical service environment</p></div></div>
+        <div class="proof"><span class="tag-chip real">Real Photo</span><img src="assets/clients-board.jpg" alt="Clients board" /><div class="cap"><h4>Client Proof</h4><p>Real clients — not fake testimonials</p></div></div>
+      </div>
+    </section>
+
+    <!-- ============ VIDEO PROOF ============ -->
+    <section class="section alt" id="video-proof">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Real Video Proof</p>
+          <h2>Genuine company videos — load on demand, never autoplay.</h2>
+          <p>These are real uploaded clips. They use <code>preload="metadata"</code> and do not autoplay, so the page stays fast. For public hosting, add a YouTube <strong>Unlisted</strong> ID in <code>app.js</code> (the <code>VIDEOS</code> list) and each card switches to a privacy-friendly embed automatically — otherwise it plays the local file.</p>
+        </div>
+        <div class="video-grid" id="videoGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ FIELD OPS FLOW ============ -->
+    <section class="section wrap" id="field-ops">
+      <div class="section-head">
+        <p class="eyebrow">Field Operation Workflow</p>
+        <h2>Every job follows one disciplined sequence.</h2>
+        <p>Standardised across all five departments — so customers get the same accountable process every time.</p>
+      </div>
+      <div class="flow">
+        <div class="step"><div class="n">1</div><h4>Inspection</h4><p>Complaint logged, site access &amp; safety check, visual assessment of the equipment or structure.</p></div>
+        <div class="step"><div class="n">2</div><h4>Measurement</h4><p>Dimensions, ratings, voltages and quantities captured on the field reporting form.</p></div>
+        <div class="step"><div class="n">3</div><h4>Checklist</h4><p>Department checklist completed — safety, function and compliance items verified.</p></div>
+        <div class="step"><div class="n">4</div><h4>Report</h4><p>Auto-generated report with estimates &amp; risk level, saved to the backend records.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ INTERACTIVE WORKFLOWS ============ -->
+    <section class="section alt" id="workflows">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Field Reporting Workflows · Live Tools</p>
+          <h2>Interactive engineering calculators &amp; report builder.</h2>
+          <p>Pick a department, enter field readings, watch live calculations, then generate a report — it is saved to the backend and listed in the Admin dashboard.</p>
+        </div>
+
+        <div class="wf-tabs" id="wfTabs">
+          <button class="wf-tab active" data-wf="lift">🛗 Lift</button>
+          <button class="wf-tab" data-wf="genset">⚙️ Genset</button>
+          <button class="wf-tab" data-wf="hvac">❄️ HVAC</button>
+          <button class="wf-tab" data-wf="civil">🏗️ Civil</button>
+          <button class="wf-tab" data-wf="electrical">⚡ Electrical</button>
+        </div>
+
+        <!-- LIFT -->
+        <div class="wf-panel active" data-panel="lift">
+          <div class="wf-card">
+            <h3>Lift / Elevator Field Report</h3>
+            <p class="sub">Complaint → site access → safety barricade → measurements → safety checks → report.</p>
+            <div class="wf-fields">
+              <div class="fld full"><label>Complaint / Fault</label><input id="lf_complaint" placeholder="e.g. Cabin not leveling at 3rd floor" /></div>
+              <div class="fld"><label>Site / Building</label><input id="lf_site" placeholder="Building name / city" /></div>
+              <div class="fld"><label>Floors served</label><input id="lf_floors" type="number" min="2" value="6" /></div>
+              <div class="fld"><label>Cabin width (m)</label><input id="lf_cabinW" type="number" step="0.01" value="1.10" /></div>
+              <div class="fld"><label>Cabin depth (m)</label><input id="lf_cabinD" type="number" step="0.01" value="1.40" /></div>
+              <div class="fld"><label>Shaft width (m)</label><input id="lf_shaftW" type="number" step="0.01" value="1.70" /></div>
+              <div class="fld"><label>Shaft depth (m)</label><input id="lf_shaftD" type="number" step="0.01" value="1.90" /></div>
+              <div class="fld"><label>Pit depth (m)</label><input id="lf_pit" type="number" step="0.01" value="1.40" /></div>
+              <div class="fld"><label>Overhead height (m)</label><input id="lf_overhead" type="number" step="0.01" value="4.20" /></div>
+              <div class="fld full"><label>Safety &amp; function checks</label>
+                <div class="wf-check">
+                  <label class="chk"><input type="checkbox" id="lf_access" checked /> Site access granted</label>
+                  <label class="chk"><input type="checkbox" id="lf_barricade" checked /> Safety barricade placed</label>
+                  <label class="chk"><input type="checkbox" id="lf_door" /> Door sensor OK</label>
+                  <label class="chk"><input type="checkbox" id="lf_level" /> Leveling OK</label>
+                  <label class="chk"><input type="checkbox" id="lf_alarm" /> Alarm / intercom OK</label>
+                </div>
+              </div>
+              <div class="fld full"><label>Engineer notes</label><textarea id="lf_notes" placeholder="Observations, parts required…"></textarea></div>
+            </div>
+          </div>
+          <div class="wf-side">
+            <div class="calc-card">
+              <h4>Live Calculation</h4>
+              <div class="calc-row"><span>Cabin floor area</span><strong id="lf_cabinArea">—</strong></div>
+              <div class="calc-row"><span>Shaft area</span><strong id="lf_shaftArea">—</strong></div>
+              <div class="calc-row"><span>Side clearance</span><strong id="lf_clear">—</strong></div>
+              <div class="calc-row"><span>Checks passed</span><strong id="lf_checks" class="hl">—</strong></div>
+            </div>
+            <div class="safety-note">⚠ Confirm shaft is barricaded and power isolated before entering the pit.</div>
+            <button class="btn primary full" data-report="lift">Generate &amp; Save Report</button>
+          </div>
+        </div>
+
+        <!-- GENSET -->
+        <div class="wf-panel" data-panel="genset">
+          <div class="wf-card">
+            <h3>Genset / Generator Field Report</h3>
+            <p class="sub">Pre-checks → manual start sequence → live readings → fault/reset → report.</p>
+            <div class="wf-fields">
+              <div class="fld"><label>Fuel level (%)</label><input id="gn_fuel" type="number" min="0" max="100" value="78" /></div>
+              <div class="fld"><label>Battery (V)</label><input id="gn_batt" type="number" step="0.1" value="12.6" /></div>
+              <div class="fld"><label>Engine oil</label><select id="gn_oil"><option>OK</option><option>Top-up needed</option><option>Change due</option></select></div>
+              <div class="fld"><label>RPM</label><input id="gn_rpm" type="number" value="1500" /></div>
+              <div class="fld"><label>Output voltage (V)</label><input id="gn_volt" type="number" value="230" /></div>
+              <div class="fld"><label>Current per phase (A)</label><input id="gn_amp" type="number" value="45" /></div>
+              <div class="fld"><label>Temperature (°C)</label><input id="gn_temp" type="number" value="78" /></div>
+              <div class="fld"><label>Load (%)</label><input id="gn_load" type="number" min="0" max="120" value="62" /></div>
+              <div class="fld full"><label>Manual start sequence</label>
+                <div class="wf-check">
+                  <label class="chk"><input type="checkbox" id="gn_s1" checked /> Isolator ON</label>
+                  <label class="chk"><input type="checkbox" id="gn_s2" checked /> Fuel valve open</label>
+                  <label class="chk"><input type="checkbox" id="gn_s3" /> Pre-heat / glow</label>
+                  <label class="chk"><input type="checkbox" id="gn_s4" /> Crank &amp; start</label>
+                  <label class="chk"><input type="checkbox" id="gn_fault" /> Fault present (needs reset)</label>
+                </div>
+              </div>
+              <div class="fld full"><label>Engineer notes</label><textarea id="gn_notes" placeholder="Phase, frequency, observations…"></textarea></div>
+            </div>
+          </div>
+          <div class="wf-side">
+            <div class="calc-card">
+              <h4>Live Calculation</h4>
+              <div class="calc-row"><span>Apparent power (1-ph)</span><strong id="gn_kva">—</strong></div>
+              <div class="calc-row"><span>3-phase est. power</span><strong id="gn_kw">—</strong></div>
+              <div class="calc-row"><span>Health status</span><strong id="gn_status" class="hl">—</strong></div>
+            </div>
+            <div class="safety-note">⚠ Never refuel a running generator. Verify exhaust ventilation before manual start.</div>
+            <button class="btn primary full" data-report="genset">Generate &amp; Save Report</button>
+          </div>
+        </div>
+
+        <!-- HVAC -->
+        <div class="wf-panel" data-panel="hvac">
+          <div class="wf-card">
+            <h3>HVAC Field Report</h3>
+            <p class="sub">Room dimensions → cooling estimate → component checklist → pipe route notes.</p>
+            <div class="wf-fields">
+              <div class="fld"><label>Room length (m)</label><input id="hv_l" type="number" step="0.1" value="6" /></div>
+              <div class="fld"><label>Room width (m)</label><input id="hv_w" type="number" step="0.1" value="4.5" /></div>
+              <div class="fld"><label>Room height (m)</label><input id="hv_h" type="number" step="0.1" value="3" /></div>
+              <div class="fld"><label>Occupancy (persons)</label><input id="hv_people" type="number" value="6" /></div>
+              <div class="fld full"><label>Component checklist</label>
+                <div class="wf-check">
+                  <label class="chk"><input type="checkbox" id="hv_filter" /> Filter cleaned</label>
+                  <label class="chk"><input type="checkbox" id="hv_coil" /> Coil cleaned</label>
+                  <label class="chk"><input type="checkbox" id="hv_drain" /> Drain clear</label>
+                  <label class="chk"><input type="checkbox" id="hv_air" /> Airflow OK</label>
+                  <label class="chk"><input type="checkbox" id="hv_outdoor" /> Outdoor unit OK</label>
+                </div>
+              </div>
+              <div class="fld full"><label>Pipe route notes</label><textarea id="hv_pipe" placeholder="Indoor→outdoor route, length, drain slope, gas type…"></textarea></div>
+            </div>
+          </div>
+          <div class="wf-side">
+            <div class="calc-card">
+              <h4>Live Calculation</h4>
+              <div class="calc-row"><span>Floor area</span><strong id="hv_area">—</strong></div>
+              <div class="calc-row"><span>Room volume</span><strong id="hv_vol">—</strong></div>
+              <div class="calc-row"><span>Cooling load (rough)</span><strong id="hv_btu">—</strong></div>
+              <div class="calc-row"><span>Suggested capacity</span><strong id="hv_tons" class="hl">—</strong></div>
+            </div>
+            <div class="safety-note">ℹ Rough estimate only — confirm with a full heat-load survey before quoting.</div>
+            <button class="btn primary full" data-report="hvac">Generate &amp; Save Report</button>
+          </div>
+        </div>
+
+        <!-- CIVIL -->
+        <div class="wf-panel" data-panel="civil">
+          <div class="wf-card">
+            <h3>Civil Works Field Report</h3>
+            <p class="sub">Areas → deductions → tile &amp; paint material estimate with wastage → condition check.</p>
+            <div class="wf-fields">
+              <div class="fld"><label>Floor length (m)</label><input id="cv_l" type="number" step="0.1" value="5" /></div>
+              <div class="fld"><label>Floor width (m)</label><input id="cv_w" type="number" step="0.1" value="4" /></div>
+              <div class="fld"><label>Wall height (m)</label><input id="cv_h" type="number" step="0.1" value="3" /></div>
+              <div class="fld"><label>Door/Window deduction (m²)</label><input id="cv_deduct" type="number" step="0.1" value="4" /></div>
+              <div class="fld"><label>Tile size (cm)</label><input id="cv_tile" type="number" value="60" /></div>
+              <div class="fld"><label>Wastage (%)</label><input id="cv_waste" type="number" value="10" /></div>
+              <div class="fld full"><label>Condition check</label>
+                <div class="wf-check">
+                  <label class="chk"><input type="checkbox" id="cv_crack" /> Cracks observed</label>
+                  <label class="chk"><input type="checkbox" id="cv_damp" /> Dampness observed</label>
+                </div>
+              </div>
+              <div class="fld full"><label>Engineer notes</label><textarea id="cv_notes" placeholder="Surface condition, finish type…"></textarea></div>
+            </div>
+          </div>
+          <div class="wf-side">
+            <div class="calc-card">
+              <h4>Live Calculation</h4>
+              <div class="calc-row"><span>Floor / tile area</span><strong id="cv_floor">—</strong></div>
+              <div class="calc-row"><span>Wall area</span><strong id="cv_wall">—</strong></div>
+              <div class="calc-row"><span>Paint area (net)</span><strong id="cv_paint">—</strong></div>
+              <div class="calc-row"><span>Tiles needed (+wastage)</span><strong id="cv_tiles" class="hl">—</strong></div>
+            </div>
+            <div class="safety-note">ℹ Includes wastage factor. Verify on-site before final BOQ.</div>
+            <button class="btn primary full" data-report="civil">Generate &amp; Save Report</button>
+          </div>
+        </div>
+
+        <!-- ELECTRICAL -->
+        <div class="wf-panel" data-panel="electrical">
+          <div class="wf-card">
+            <h3>Electrical Works Field Report</h3>
+            <p class="sub">Safety warning → DB visual → ratings &amp; readings → earthing → risk &amp; material.</p>
+            <div class="safety-note" style="margin-bottom:16px">⚠ DANGER OF ELECTRIC SHOCK — verify isolation &amp; lock-out before any DB or panel work.</div>
+            <div class="wf-fields">
+              <div class="fld"><label>DB visual condition</label><select id="el_db"><option>Good</option><option>Loose terminals</option><option>Overheating signs</option><option>Damaged</option></select></div>
+              <div class="fld"><label>Main breaker rating (A)</label><input id="el_breaker" type="number" value="63" /></div>
+              <div class="fld"><label>Measured voltage (V)</label><input id="el_volt" type="number" value="230" /></div>
+              <div class="fld"><label>Measured current (A)</label><input id="el_amp" type="number" value="38" /></div>
+              <div class="fld"><label>Cable route length (m)</label><input id="el_cable" type="number" value="45" /></div>
+              <div class="fld"><label>Supply</label><select id="el_phase"><option value="1">Single phase</option><option value="3">Three phase</option></select></div>
+              <div class="fld full"><label>Earthing note</label><input id="el_earth" placeholder="e.g. Earth pit resistance &lt; 1Ω, neutral-earth bonded" /></div>
+              <div class="fld full"><label>Material requirement</label><textarea id="el_material" placeholder="Cable size, breakers, accessories…"></textarea></div>
+            </div>
+          </div>
+          <div class="wf-side">
+            <div class="calc-card">
+              <h4>Live Calculation</h4>
+              <div class="calc-row"><span>Active power (est.)</span><strong id="el_power">—</strong></div>
+              <div class="calc-row"><span>Breaker loading</span><strong id="el_loading">—</strong></div>
+              <div class="calc-row"><span>Suggested cable</span><strong id="el_cableSize">—</strong></div>
+              <div class="calc-row"><span>Risk level</span><strong id="el_risk" class="hl">—</strong></div>
+            </div>
+            <button class="btn primary full" data-report="electrical">Generate &amp; Save Report</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3D TECH LAB ============ -->
+    <section class="section wrap" id="lab">
+      <div class="section-head">
+        <p class="eyebrow">The Wow Section · Digital Twin</p>
+        <h2>3D Tech Lab — live genset &amp; lift simulation.</h2>
+        <p>Buttons send commands to the Python (FastAPI) backend; the 3D scene and telemetry update live over WebSockets.</p>
+      </div>
+      <div class="lab-grid">
+        <aside class="panel">
+          <h3>Generator Manual Start</h3>
+          <p class="muted">Backend simulates RPM, voltage, temperature, fuel &amp; faults.</p>
+          <div class="button-row">
+            <button class="btn primary" data-api="/api/generator/start">Start</button>
+            <button class="btn danger" data-api="/api/generator/stop">Stop</button>
+          </div>
+          <div class="button-row">
+            <button class="btn warn" data-api="/api/generator/fault">Trigger Fault</button>
+            <button class="btn ghost" data-api="/api/generator/reset">Reset</button>
+          </div>
+          <div class="meter-list">
+            <label>RPM <strong id="rpmValue">0</strong><meter id="rpmMeter" max="1500" value="0"></meter></label>
+            <label>Voltage <strong id="voltageValue">0V</strong><meter id="voltageMeter" max="230" value="0"></meter></label>
+            <label>Temperature <strong id="tempValue">0°C</strong><meter id="tempMeter" max="100" value="0"></meter></label>
+            <label>Fuel <strong id="fuelValue">0%</strong><meter id="fuelMeter" max="100" value="0"></meter></label>
+          </div>
+        </aside>
+
+        <div class="scene-wrap">
+          <div class="scene-tabs" role="tablist">
+            <button class="active" data-scene="generator">Generator 3D</button>
+            <button data-scene="lift">Lift 3D</button>
+          </div>
+          <canvas id="threeCanvas" aria-label="3D simulation canvas"></canvas>
+          <div class="scene-overlay">
+            <span id="sceneTitle">Generator Simulation</span>
+            <strong id="sceneStatus">Idle</strong>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <h3>Lift Control</h3>
+          <p class="muted">Select a floor and watch backend status + 3D lift movement.</p>
+          <div class="floor-grid">
+            <button data-floor="0">G</button>
+            <button data-floor="1">1</button>
+            <button data-floor="2">2</button>
+            <button data-floor="3">3</button>
+            <button data-floor="4">4</button>
+            <button data-floor="5">5</button>
+          </div>
+          <div class="button-row">
+            <button class="btn warn" data-api="/api/lift/fault">Maintenance Alert</button>
+            <button class="btn ghost" data-api="/api/lift/reset">Reset</button>
+          </div>
+          <div class="mini-data">
+            <div><span>Current</span><strong id="liftFloor">0</strong></div>
+            <div><span>Target</span><strong id="liftTarget">0</strong></div>
+            <div><span>Door</span><strong id="liftDoor">closed</strong></div>
+            <div><span>Health</span><strong id="liftHealth">normal</strong></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ BOOKING ============ -->
+    <section class="section alt" id="booking">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow">Customer Booking</p>
+          <h2 style="font-size:34px;font-weight:800">Book a service in under a minute.</h2>
+          <p style="color:var(--muted);margin-top:14px;font-size:15.5px">This form saves to SQLite through FastAPI. The Admin dashboard below loads every request live from the backend.</p>
+          <div class="pitch-box">
+            <strong>PRESENTATION LINE</strong>
+            <span>“We designed a future-ready service platform: customers book online, the backend records every request, and the technical lab shows how real equipment monitoring connects in.”</span>
+          </div>
+        </div>
+        <form id="bookingForm" class="booking-form">
+          <label>Name <input name="name" placeholder="Customer name" required /></label>
+          <label>Phone <input name="phone" placeholder="+92 300 0000000" required /></label>
+          <label class="full">Service Department
+            <select name="service_type" required>
+              <option value="">Select service</option>
+              <option>Lift / Elevator</option>
+              <option>Genset / Generator</option>
+              <option>HVAC</option>
+              <option>Civil Works</option>
+              <option>Electrical Works</option>
+              <option>Site Survey</option>
+              <option>Repair &amp; Maintenance</option>
+            </select>
+          </label>
+          <label class="full">Location <input name="location" placeholder="City / area" required /></label>
+          <label class="full">Details <textarea name="details" rows="4" placeholder="Describe the requirement or fault…" required></textarea></label>
+          <button class="btn primary full" type="submit">Save Service Request</button>
+          <p id="bookingStatus" class="form-status full"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ ADMIN ============ -->
+    <section class="section wrap" id="admin">
+      <div class="section-head">
+        <p class="eyebrow">Backend Command Center</p>
+        <h2>Admin dashboard — requests, field reports &amp; technical logs.</h2>
+        <p>All data below is loaded live from the Python backend (SQLite).</p>
+      </div>
+      <div class="admin-actions">
+        <button class="btn ghost" id="refreshAdmin">↻ Refresh All</button>
+      </div>
+      <div class="dashboard-grid">
+        <div class="panel"><h3>Service Requests</h3><div id="requestList" class="request-list"></div></div>
+        <div class="panel"><h3>Field Reports</h3><div id="reportList" class="report-list"></div></div>
+        <div class="panel"><h3>Technical Logs</h3><div id="logList" class="log-list"></div></div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section alt" id="contact">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Get In Touch</p>
+          <h2>Reach Riaz &amp; Sons Solution today.</h2>
+        </div>
+        <div class="contact-grid">
+          <div>
+            <div class="cinfo">
+              <div class="crow"><div class="ci">📍</div><div><h5>Head Office</h5><p>156 Aurangzeb Block, New Garden Town, Lahore, Pakistan</p></div></div>
+              <div class="crow"><div class="ci">📞</div><div><h5>Landline</h5><a href="tel:+924235952051">+92 42-3595 2051</a></div></div>
+              <div class="crow"><div class="ci">📱</div><div><h5>Mobile / WhatsApp</h5><a href="tel:03058967537">0305-8967537</a></div></div>
+              <div class="crow"><div class="ci">🌐</div><div><h5>Website</h5><a href="http://www.riazandsons.com" target="_blank" rel="noopener">www.riazandsons.com</a></div></div>
+              <div class="crow"><div class="ci">📸</div><div><h5>Instagram</h5><a href="https://www.instagram.com/riaz_and_sons_solution/" target="_blank" rel="noopener">@riaz_and_sons_solution</a></div></div>
+            </div>
+            <div class="socs">
+              <a class="socb" href="https://wa.me/923058967537" target="_blank" rel="noopener">💬 WhatsApp</a>
+              <a class="socb" href="https://www.instagram.com/riaz_and_sons_solution/" target="_blank" rel="noopener">📸 Instagram</a>
+              <a class="socb" href="https://www.linkedin.com/company/riaz-sons-solution/" target="_blank" rel="noopener">💼 LinkedIn</a>
+            </div>
+          </div>
+          <div class="offices">
+            <h4>Our Offices</h4>
+            <div class="office-row hq"><span class="dot2"></span> Lahore — 156 Aurangzeb Block, New Garden Town <span class="hqtag">HEAD OFFICE</span></div>
+            <div class="office-row"><span class="dot2"></span> Islamabad</div>
+            <div class="office-row"><span class="dot2"></span> Karachi</div>
+            <div class="office-row"><span class="dot2"></span> Multan</div>
+            <div class="office-row"><span class="dot2"></span> Peshawar</div>
+            <a class="btn blue full" href="https://wa.me/923058967537?text=Salam%2C%20I%20want%20to%20inquire%20about%20engineering%20services%20from%20Riaz%20%26%20Sons%20Solution." target="_blank" rel="noopener" style="margin-top:18px">Inquire on WhatsApp ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="finner">
+        <div class="fbrand">
+          <img src="assets/real-logo.jpg" alt="Riaz & Sons Solution logo" />
+          <div>
+            <strong>Riaz &amp; Sons Solution</strong>
+            <small>Six decades of trust · A new chapter of excellence</small>
+          </div>
+        </div>
+        <p class="ftags">Lift · Genset · HVAC · Civil · Electrical · Site Survey · Repair &amp; Maintenance — powered by FastAPI · WebSockets · Three.js · SQLite. Founded by Muhammad Riaz (Late) · Led by Adnan Riaz.</p>
+      </div>
+      <div class="copy">© 2025 Riaz &amp; Sons Solution (Pvt.) Ltd. All rights reserved. Pakistan · Est. 1965. This page is a digital service-platform concept built with real company media.</div>
+    </div>
+  </footer>
+
+  <!-- Walkthrough modal -->
+  <div class="modal" id="walkModal" aria-hidden="true">
+    <div class="backdrop" data-close-walk></div>
+    <div class="dialog" role="dialog" aria-label="Riaz & Sons walkthrough">
+      <button class="modal-close" id="closeWalkthroughBtn" type="button">×</button>
+      <div class="walk-media" id="walkMedia"></div>
+      <div class="walk-copy">
+        <p class="eyebrow">Walkthrough</p>
+        <h2>Riaz &amp; Sons Solution — Engineering Field Service OS</h2>
+        <p>Real company media + a premium service website + a backend command center + 3D lift/genset simulation + live field-reporting workflows.</p>
+        <ol>
+          <li>Start with real brand, leadership &amp; project proof.</li>
+          <li>Run a field-reporting workflow (Lift / Genset / HVAC / Civil / Electrical).</li>
+          <li>Open the 3D Tech Lab for the lift &amp; generator demo.</li>
+          <li>Submit a booking and show it appear in the backend Admin logs.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report modal -->
+  <div class="modal" id="reportModal" aria-hidden="true">
+    <div class="backdrop" data-close-report></div>
+    <div class="dialog" role="dialog" aria-label="Generated field report">
+      <button class="modal-close" id="closeReportBtn" type="button">×</button>
+      <div class="report-out">
+        <p class="eyebrow">Generated Field Report</p>
+        <h2 id="reportTitle">Field Report</h2>
+        <pre id="reportBody">—</pre>
+        <p id="reportSaveStatus" class="form-status"></p>
+        <div class="ra">
+          <button class="btn ghost" id="copyReportBtn" type="button">Copy report</button>
+          <button class="btn primary" data-close-report type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
