@@ -153,17 +153,32 @@ document.querySelectorAll("[data-scene]").forEach((button) => {
 });
 
 /* ---------- Booking ---------- */
+const WHATSAPP_NUMBER = "923058967537"; // company WhatsApp
+
+function whatsappBookingURL(d) {
+  const text =
+    `Salam, I want to book a service from Riaz & Sons Solution.\n` +
+    `Name: ${d.name}\nPhone: ${d.phone}\nService: ${d.service_type}\n` +
+    `Location: ${d.location}\nDetails: ${d.details}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
 els.bookingForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = Object.fromEntries(new FormData(els.bookingForm).entries());
-  els.bookingStatus.textContent = "Saving request to backend…";
+  els.bookingStatus.textContent = "Submitting your request…";
   try {
+    // Try the backend first (saves to SQLite + admin dashboard)
     const response = await apiPost("/api/service-requests", data);
-    els.bookingStatus.textContent = `✓ Saved. Request ID: ${response.id}`;
+    if (!response || response.ok === false) throw new Error("no backend");
+    els.bookingStatus.textContent = `✓ Saved to backend. Request ID: ${response.id}`;
     els.bookingForm.reset();
     await loadAdminData();
   } catch (error) {
-    els.bookingStatus.textContent = "Could not save request. Check the backend terminal.";
+    // No backend (e.g. live static site) → send the booking via WhatsApp
+    els.bookingStatus.textContent = "✓ Opening WhatsApp to send your booking to Riaz & Sons Solution…";
+    window.open(whatsappBookingURL(data), "_blank");
+    els.bookingForm.reset();
   }
 });
 
