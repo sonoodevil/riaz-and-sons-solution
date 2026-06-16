@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Riaz &amp; Sons Solution | Engineering · Field Operations · Digital Monitoring</title>
-  <meta name="description" content="Riaz & Sons Solution — Lift, Genset, HVAC, Civil & Electrical engineering services with live field-reporting workflows, 3D lift/genset simulation, booking and a backend command center. Trusted since 1965." />
+  <meta name="description" content="Riaz & Sons Solution — Lift, Genset, HVAC, Civil & Electrical engineering services with field-reporting tools, interactive 3D equipment models and online booking. Trusted since 1965." />
   <link rel="icon" href="assets/real-logo.jpg" />
   <link rel="stylesheet" href="styles.css" />
   <script type="module" src="app.js"></script>
@@ -38,7 +38,7 @@
       <a href="#video-proof">Videos</a>
       <a href="#workflows">Workflows</a>
       <a href="#lab">3D Lab</a>
-      <a href="#admin">Admin</a>
+      <a href="#admin">Dashboard</a>
       <a href="#booking" class="btn nav-cta">Book Service</a>
     </nav>
   </header>
@@ -53,7 +53,7 @@
           <h1>Engineering Services, Field Operations &amp; <span class="grad">Digital Monitoring</span> — One Platform.</h1>
           <p class="lead">
             Riaz &amp; Sons Solution unifies real field engineering — Lift, Genset, HVAC, Civil and Electrical —
-            with live telemetry, 3D equipment simulation, customer booking and a backend command center.
+            with live equipment monitoring, interactive 3D models, online booking and an operations dashboard.
           </p>
           <div class="hero-actions">
             <button class="btn primary" id="openWalkthrough" type="button">▶ Watch Walkthrough</button>
@@ -69,14 +69,14 @@
         </div>
 
         <div class="command-card">
-          <div class="card-header"><span class="pulse"></span> Live Backend Telemetry</div>
+          <div class="card-header"><span class="pulse"></span> Live Equipment Monitoring</div>
           <div class="status-grid">
             <div><span id="heroClients">0</span><small>Active Clients</small></div>
             <div><span id="heroRpm">0</span><small>Genset RPM</small></div>
             <div><span id="heroFloor">0</span><small>Lift Floor</small></div>
             <div><span id="heroTemp">0°C</span><small>Temperature</small></div>
           </div>
-          <pre id="heroLog">Connecting to FastAPI WebSocket telemetry…</pre>
+          <pre id="heroLog">Connecting to live equipment monitoring…</pre>
         </div>
       </div>
     </section>
@@ -160,24 +160,24 @@
         <div class="section-head">
           <p class="eyebrow">Leadership &amp; Legacy</p>
           <h2>Founded by Muhammad Riaz. Led forward by Adnan Riaz.</h2>
-          <p>The portraits below are from real Riaz &amp; Sons Solution company banners — presented on a professional engineering background.</p>
+          <p>Six decades of engineering leadership — from our founder who built the company, to the team driving it forward today.</p>
         </div>
         <div class="lead-grid">
           <article class="leader">
             <div class="photo">
-              <span class="real-tag">● Real Photo · Professional Edit</span>
-              <img src="assets/founder-portrait.jpg" alt="Muhammad Riaz — Founder, Riaz & Sons Solution, on paper since 1965" />
+              <span class="real-tag">● Our Founder</span>
+              <img src="assets/founder-portrait.jpg" alt="Muhammad Riaz — Founder of Riaz & Sons Solution, since 1965" />
             </div>
             <div class="body">
               <h3>Muhammad Riaz <span class="gold-text">(Late)</span> ♥</h3>
-              <div class="role">Founder &amp; Owner — On Paper Since 1965</div>
+              <div class="role">Founder &amp; Owner — Since 1965</div>
               <p>Established Riaz &amp; Sons Solution on the principles of integrity and professionalism. In six decades he built a unique portfolio across Generators, Elevators, Escalators and HVAC — operating as a performance leader in engineering services.</p>
               <p class="dua">May Allah grant him the highest place in Jannah. آمین</p>
             </div>
           </article>
           <article class="leader">
             <div class="photo">
-              <span class="real-tag">● Real Photo · Professional Edit</span>
+              <span class="real-tag">● Our Leadership</span>
               <img src="assets/adnan-portrait.jpg" alt="Adnan Riaz — Owner & Director, Riaz & Sons Solution" />
             </div>
             <div class="body">
@@ -316,7 +316,7 @@
         <div class="step"><div class="n">1</div><h4>Inspection</h4><p>Complaint logged, site access &amp; safety check, visual assessment of the equipment or structure.</p></div>
         <div class="step"><div class="n">2</div><h4>Measurement</h4><p>Dimensions, ratings, voltages and quantities captured on the field reporting form.</p></div>
         <div class="step"><div class="n">3</div><h4>Checklist</h4><p>Department checklist completed — safety, function and compliance items verified.</p></div>
-        <div class="step"><div class="n">4</div><h4>Report</h4><p>Auto-generated report with estimates &amp; risk level, saved to the backend records.</p></div>
+        <div class="step"><div class="n">4</div><h4>Report</h4><p>A clean report with estimates &amp; risk level, ready to save or share with the client.</p></div>
       </div>
     </section>
 
@@ -326,7 +326,7 @@
         <div class="section-head">
           <p class="eyebrow">Field Reporting Workflows · Live Tools</p>
           <h2>Interactive engineering calculators &amp; report builder.</h2>
-          <p>Pick a department, enter field readings, watch live calculations, then generate a report — it is saved to the backend and listed in the Admin dashboard.</p>
+          <p>Pick a department, enter field readings, watch live calculations, then generate a clean report you can save or share.</p>
         </div>
 
         <div class="wf-tabs" id="wfTabs">
@@ -518,14 +518,14 @@
     <!-- ============ 3D TECH LAB ============ -->
     <section class="section wrap" id="lab">
       <div class="section-head">
-        <p class="eyebrow">The Wow Section · Digital Twin</p>
-        <h2>3D Tech Lab — live genset &amp; lift simulation.</h2>
-        <p>Buttons send commands to the Python (FastAPI) backend; the 3D scene and telemetry update live over WebSockets.</p>
+        <p class="eyebrow">Interactive 3D Equipment</p>
+        <h2>3D Tech Lab — explore our Genset, Lift &amp; HVAC.</h2>
+        <p>Explore the equipment we install in 3D — start the generator, move the lift, switch to the HVAC unit, and see the key parts and technical points of each system.</p>
       </div>
       <div class="lab-grid">
         <aside class="panel">
           <h3>Generator Manual Start</h3>
-          <p class="muted">Backend simulates RPM, voltage, temperature, fuel &amp; faults.</p>
+          <p class="muted">Start the set and watch RPM, voltage, temperature, fuel &amp; fault readings respond live.</p>
           <div class="button-row">
             <button class="btn primary" data-api="/api/generator/start">Start</button>
             <button class="btn danger" data-api="/api/generator/stop">Stop</button>
@@ -546,6 +546,7 @@
           <div class="scene-tabs" role="tablist">
             <button class="active" data-scene="generator">Generator 3D</button>
             <button data-scene="lift">Lift 3D</button>
+            <button data-scene="hvac">HVAC 3D</button>
           </div>
           <canvas id="threeCanvas" aria-label="3D simulation canvas"></canvas>
           <div class="scene-overlay">
@@ -556,7 +557,7 @@
 
         <aside class="panel">
           <h3>Lift Control</h3>
-          <p class="muted">Select a floor and watch backend status + 3D lift movement.</p>
+          <p class="muted">Select a floor and watch the cabin move with live status.</p>
           <div class="floor-grid">
             <button data-floor="0">G</button>
             <button data-floor="1">1</button>
@@ -577,6 +578,11 @@
           </div>
         </aside>
       </div>
+
+      <div class="tech-points">
+        <div class="tp-head"><span id="techIcon">⚙️</span><h3 id="techTitle">Generator — Key Parts &amp; Technical Points</h3></div>
+        <ul id="techList"></ul>
+      </div>
     </section>
 
     <!-- ============ BOOKING ============ -->
@@ -585,10 +591,17 @@
         <div>
           <p class="eyebrow">Customer Booking</p>
           <h2 style="font-size:34px;font-weight:800">Book a service in under a minute.</h2>
-          <p style="color:var(--muted);margin-top:14px;font-size:15.5px">This form saves to SQLite through FastAPI. The Admin dashboard below loads every request live from the backend.</p>
+          <p style="color:var(--muted);margin-top:14px;font-size:15.5px">Tell us what you need and our team replies quickly on WhatsApp. Starting a project? Sharing the points below helps us quote faster and more accurately.</p>
           <div class="pitch-box">
-            <strong>PRESENTATION LINE</strong>
-            <span>“We designed a future-ready service platform: customers book online, the backend records every request, and the technical lab shows how real equipment monitoring connects in.”</span>
+            <strong>STARTING A PROJECT? PLEASE SHARE</strong>
+            <ul class="start-points">
+              <li>Scope &amp; service needed — Lift / Genset / HVAC / Civil / Electrical</li>
+              <li>Site location &amp; access — building, floor, available timings</li>
+              <li>Drawings, measurements or site photos (if available)</li>
+              <li>Capacity / size — e.g. lift floors, genset kVA, HVAC tonnage</li>
+              <li>Timeline &amp; target start date</li>
+              <li>Budget range — helps us recommend the right option</li>
+            </ul>
           </div>
         </div>
         <form id="bookingForm" class="booking-form">
@@ -617,9 +630,9 @@
     <!-- ============ ADMIN ============ -->
     <section class="section wrap" id="admin">
       <div class="section-head">
-        <p class="eyebrow">Backend Command Center</p>
-        <h2>Admin dashboard — requests, field reports &amp; technical logs.</h2>
-        <p>All data below is loaded live from the Python backend (SQLite).</p>
+        <p class="eyebrow">Operations Dashboard</p>
+        <h2>Service requests, field reports &amp; recent activity.</h2>
+        <p>A live operations view — every booking and field report in one place.</p>
       </div>
       <div class="admin-actions">
         <button class="btn ghost" id="refreshAdmin">↻ Refresh All</button>
@@ -677,7 +690,7 @@
             <small>Six decades of trust · A new chapter of excellence</small>
           </div>
         </div>
-        <p class="ftags">Lift · Genset · HVAC · Civil · Electrical · Site Survey · Repair &amp; Maintenance — powered by FastAPI · WebSockets · Three.js · SQLite. Founded by Muhammad Riaz (Late) · Led by Adnan Riaz.</p>
+        <p class="ftags">Lift · Genset · HVAC · Civil · Electrical · Site Survey · Repair &amp; Maintenance. Founded by Muhammad Riaz (Late) · Led by Adnan Riaz.</p>
       </div>
       <div class="copy">© 2025 Riaz &amp; Sons Solution (Pvt.) Ltd. All rights reserved. Pakistan · Est. 1965. This page is a digital service-platform concept built with real company media.</div>
     </div>
@@ -692,12 +705,12 @@
       <div class="walk-copy">
         <p class="eyebrow">Walkthrough</p>
         <h2>Riaz &amp; Sons Solution — Engineering Field Service OS</h2>
-        <p>Real company media + a premium service website + a backend command center + 3D lift/genset simulation + live field-reporting workflows.</p>
+        <p>Real company media, a premium service website, interactive 3D equipment, and live field-reporting workflows — all in one place.</p>
         <ol>
           <li>Start with real brand, leadership &amp; project proof.</li>
           <li>Run a field-reporting workflow (Lift / Genset / HVAC / Civil / Electrical).</li>
           <li>Open the 3D Tech Lab for the lift &amp; generator demo.</li>
-          <li>Submit a booking and show it appear in the backend Admin logs.</li>
+          <li>Submit a booking and see it appear in the operations dashboard.</li>
         </ol>
       </div>
     </div>

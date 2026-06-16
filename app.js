@@ -155,7 +155,7 @@ function connectWebSocket() {
   const ws = new WebSocket(`${protocol}://${location.host}/ws/telemetry`);
 
   ws.onopen = () => {
-    els.heroLog.textContent = "Connected to FastAPI WebSocket telemetry.";
+    els.heroLog.textContent = "Live equipment monitoring connected.";
     setInterval(() => { if (ws.readyState === WebSocket.OPEN) ws.send("ping"); }, 12000);
   };
   ws.onmessage = (event) => {
@@ -163,7 +163,7 @@ function connectWebSocket() {
     if (payload.type === "telemetry") { telemetry = payload.data; updateTelemetryUI(); }
   };
   ws.onclose = () => {
-    els.heroLog.textContent = "WebSocket disconnected. Make sure the backend is running.";
+    els.heroLog.textContent = "Live monitoring paused — reconnecting…";
     setTimeout(connectWebSocket, 1500);
   };
 }
@@ -191,14 +191,17 @@ function updateTelemetryUI() {
   els.heroLog.textContent =
     `Genset: ${gen.running ? "RUNNING" : "IDLE"} | ${gen.rpm} RPM | ${gen.voltage}V | ${gen.temperature}°C${fault}\n` +
     `Lift: Floor ${lift.current_floor} → ${lift.target_floor} | ${lift.moving ? "MOVING" : "READY"} | Door: ${lift.door}\n` +
-    `Last backend update: ${site.last_update}`;
+    `Last update: ${site.last_update}`;
 
   if (activeScene === "generator") {
-    els.sceneTitle.textContent = "Generator Simulation";
+    els.sceneTitle.textContent = "Generator";
     els.sceneStatus.textContent = gen.fault || (gen.running ? "Running" : "Idle");
-  } else {
-    els.sceneTitle.textContent = "Lift Simulation";
+  } else if (activeScene === "lift") {
+    els.sceneTitle.textContent = "Lift / Elevator";
     els.sceneStatus.textContent = lift.health !== "normal" ? lift.health : (lift.moving ? "Moving" : `Floor ${lift.current_floor}`);
+  } else {
+    els.sceneTitle.textContent = "HVAC Unit";
+    els.sceneStatus.textContent = "Cooling";
   }
 }
 
@@ -222,8 +225,38 @@ document.querySelectorAll("[data-scene]").forEach((button) => {
     button.classList.add("active");
     activeScene = button.dataset.scene;
     updateTelemetryUI();
+    renderTech(activeScene);
   });
 });
+
+/* 3D Tech Lab — key parts & technical points per equipment */
+const TECH = {
+  generator: { icon: "⚙️", title: "Generator (Genset) — Key Parts & Technical Points", points: [
+    "<strong>Diesel engine</strong> — prime mover", "<strong>Alternator</strong> — generates AC power",
+    "<strong>Radiator</strong> & cooling system", "<strong>Control panel</strong> — AMF / ATS auto-start",
+    "<strong>AVR</strong> — automatic voltage regulation", "<strong>Fuel tank</strong> & day tank",
+    "<strong>Exhaust</strong> & silencer", "<strong>Battery</strong> & charger",
+    "Runs at <strong>1500 RPM · 50 Hz</strong>", "Output <strong>230 / 400 V</strong> — on-load tested" ] },
+  lift: { icon: "🛗", title: "Lift / Elevator — Key Parts & Technical Points", points: [
+    "<strong>Cabin</strong> & car frame", "<strong>Counterweight</strong>", "<strong>Guide rails</strong> & shoes",
+    "<strong>Traction machine</strong> / motor", "<strong>VVVF drive</strong> & controller",
+    "<strong>Door operator</strong> & safety sensors", "<strong>Overspeed governor</strong> & safety gear",
+    "<strong>Buffers</strong> in the pit", "<strong>Leveling</strong> ±5–10 mm", "<strong>Alarm</strong> & intercom" ] },
+  hvac: { icon: "❄️", title: "HVAC — Key Parts & Technical Points", points: [
+    "<strong>Compressor</strong> — refrigerant heart", "<strong>Condenser coil</strong> (outdoor)",
+    "<strong>Evaporator coil</strong> (indoor)", "<strong>Expansion valve</strong>",
+    "<strong>Blower / fan</strong> & motor", "<strong>Air filters</strong>",
+    "<strong>Refrigerant piping</strong> & insulation", "<strong>Condensate drain</strong>",
+    "Sized by <strong>tonnage</strong> (≈1 ton / 140 ft²)", "Types: <strong>Split · VRF/VRV · Chiller · AHU</strong>" ] },
+};
+function renderTech(which) {
+  const t = TECH[which] || TECH.generator;
+  const icon = $("techIcon"), title = $("techTitle"), list = $("techList");
+  if (!list) return;
+  if (icon) icon.textContent = t.icon;
+  if (title) title.textContent = t.title;
+  list.innerHTML = t.points.map((p) => `<li>${p}</li>`).join("");
+}
 
 /* ---------- Booking ---------- */
 const WHATSAPP_NUMBER = "923058967537"; // company WhatsApp
@@ -245,10 +278,10 @@ els.bookingForm.addEventListener("submit", async (event) => {
     const response = await apiPost("/api/service-requests", data);
     if (!response || response.ok === false) throw new Error("no backend");
     if (LOCAL) {
-      els.bookingStatus.textContent = `✓ Saved to dashboard (#${response.id}). Opening WhatsApp to send it to Riaz & Sons Solution…`;
+      els.bookingStatus.textContent = `✓ Request logged (ref #${response.id}). Opening WhatsApp to send it to our team…`;
       window.open(whatsappBookingURL(data), "_blank");
     } else {
-      els.bookingStatus.textContent = `✓ Saved to backend. Request ID: ${response.id}`;
+      els.bookingStatus.textContent = `✓ Request received. Reference #${response.id}`;
     }
     els.bookingForm.reset();
     await loadAdminData();
@@ -280,9 +313,9 @@ async function loadAdminData() {
     renderReports(reports);
     renderLogs(logs);
   } catch (error) {
-    els.requestList.innerHTML = `<p class="muted">Backend data unavailable.</p>`;
-    els.reportList.innerHTML = `<p class="muted">Backend reports unavailable.</p>`;
-    els.logList.innerHTML = `<p class="muted">Backend logs unavailable.</p>`;
+    els.requestList.innerHTML = `<p class="muted">No requests yet.</p>`;
+    els.reportList.innerHTML = `<p class="muted">No reports yet.</p>`;
+    els.logList.innerHTML = `<p class="muted">No activity yet.</p>`;
   }
 }
 
@@ -586,13 +619,13 @@ document.querySelectorAll("[data-report]").forEach((btn) => {
     const report = builder();
     openReport(report);
     const status = $("reportSaveStatus");
-    status.textContent = "Saving to backend…";
+    status.textContent = "Saving report…";
     try {
       const res = await apiPost("/api/reports", { workflow: report.workflow, title: report.title, summary: report.summary, payload: report.payload });
-      status.textContent = `✓ Saved to backend records as report #${res.id}.`;
+      status.textContent = `✓ Report saved (ref #${res.id}).`;
       await loadAdminData();
     } catch (e) {
-      status.textContent = "Saved locally (backend offline — report still shown above).";
+      status.textContent = "Report ready (saved on this device).";
     }
   });
 });
@@ -644,7 +677,8 @@ grid.position.y = -1.52; scene.add(grid);
 
 const generatorGroup = new THREE.Group();
 const liftGroup = new THREE.Group();
-scene.add(generatorGroup, liftGroup);
+const hvacGroup = new THREE.Group();
+scene.add(generatorGroup, liftGroup, hvacGroup);
 
 const matBlue = new THREE.MeshStandardMaterial({ color: 0x2f80ed, roughness: 0.42, metalness: 0.35 });
 const matDark = new THREE.MeshStandardMaterial({ color: 0x0f1b33, roughness: 0.55, metalness: 0.3 });
@@ -688,6 +722,23 @@ for (let i = 0; i <= 5; i++) {
 }
 liftGroup.visible = false;
 
+/* HVAC model (outdoor condenser + spinning fan + indoor split unit) */
+const matLight = new THREE.MeshStandardMaterial({ color: 0xcdd8ec, roughness: 0.5, metalness: 0.2 });
+hvacGroup.add(makeBox(3.4, 2.2, 1.6, matBlue, -0.6, 0, 0));        // outdoor unit body
+hvacGroup.add(makeBox(3.6, 0.3, 1.8, matDark, -0.6, -1.15, 0));    // base
+for (let i = 0; i < 5; i++) hvacGroup.add(makeBox(3.0, 0.04, 0.16, matDark, -0.6, 0.92, -0.6 + i * 0.3)); // top grille
+const fanRing = new THREE.Mesh(new THREE.TorusGeometry(0.85, 0.07, 16, 48), matGold);
+fanRing.position.set(-0.6, 0.05, 0.82);
+hvacGroup.add(fanRing);
+const hvacFan = new THREE.Group();
+for (let i = 0; i < 4; i++) { const b = makeBox(1.5, 0.16, 0.05, matGreen, 0, 0, 0); b.rotation.z = i * Math.PI / 2; hvacFan.add(b); }
+hvacFan.add(makeBox(0.3, 0.3, 0.18, matDark, 0, 0, 0));
+hvacFan.position.set(-0.6, 0.05, 0.84);
+hvacGroup.add(hvacFan);
+hvacGroup.add(makeBox(2.0, 0.55, 0.45, matLight, 2.7, 1.5, 0));    // indoor split unit
+hvacGroup.add(makeBox(2.0, 0.08, 0.45, matBlue, 2.7, 1.22, 0.02)); // indoor vent slot
+hvacGroup.visible = false;
+
 function resizeRenderer() {
   const rect = canvas.getBoundingClientRect();
   const width = Math.max(320, rect.width);
@@ -707,6 +758,8 @@ function animate() {
   const gen = telemetry?.generator, lift = telemetry?.lift;
   generatorGroup.visible = activeScene === "generator";
   liftGroup.visible = activeScene === "lift";
+  hvacGroup.visible = activeScene === "hvac";
+  if (activeScene === "hvac") { hvacGroup.rotation.y += 0.004; hvacFan.rotation.z += 0.25; }
 
   if (gen) {
     const speed = gen.running ? Math.max(0.05, gen.rpm / 180) : 0.01;
@@ -762,6 +815,7 @@ primaryNav?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () 
 
 /* ---------- Boot ---------- */
 renderVideoGallery();
+renderTech(activeScene);
 recalcAll();
 animate();
 
@@ -772,8 +826,8 @@ fetch(API + "/api/state", { cache: "no-store" })
   .catch(() => {
     LOCAL = true;
     document.body.classList.add("local-mode");
-    if (!LS.get(LSK.log, []).length) localLog("system", "info", "Local demo mode started — telemetry simulated in browser.");
-    els.heroLog.textContent = "Local demo mode — live telemetry is simulated in your browser (no backend needed).";
+    if (!LS.get(LSK.log, []).length) localLog("system", "info", "Equipment monitoring started.");
+    els.heroLog.textContent = "Live equipment monitoring — showing demo readings.";
     telemetry = localState;
     updateTelemetryUI();
     setInterval(localSimTick, 1000);
